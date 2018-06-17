@@ -1,0 +1,9 @@
+{
+  "name": "happyMall-admin",
+  "version": "1.0.0",
+  "description": "happyMall后台管理系统",
+  "main": "index.js",
+  "repository": "git@github.com:weiqiujuan/happyMall-admin.git",
+  "author": "weiqiujuan",
+  "license": "MIT"
+}
