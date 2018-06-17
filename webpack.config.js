@@ -14,14 +14,14 @@ module.exports = {
             ? '/dist/' : '//s.jianliwu.com/admin-v2-fe/dist/',
         filename: 'js/app.js'
     },
-   /* resolve: {
+    resolve: {
         alias : {
             page        : path.resolve(__dirname, 'src/page'),
             component   : path.resolve(__dirname, 'src/component'),
             util        : path.resolve(__dirname, 'src/util'),
             service     : path.resolve(__dirname, 'src/service')
         }
-    },*/
+    },
     module: {
         rules: [
             // react(jsx)语法的处理
