@@ -1,6 +1,5 @@
-
-const path              = require('path');
-const webpack           = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -15,11 +14,11 @@ module.exports = {
         filename: 'js/app.js'
     },
     resolve: {
-        alias : {
-            page        : path.resolve(__dirname, 'src/page'),
-            component   : path.resolve(__dirname, 'src/component'),
-            util        : path.resolve(__dirname, 'src/util'),
-            service     : path.resolve(__dirname, 'src/service')
+        alias: {
+            page: path.resolve(__dirname, 'src/page'),
+            component: path.resolve(__dirname, 'src/component'),
+            util: path.resolve(__dirname, 'src/util'),
+            service: path.resolve(__dirname, 'src/service')
         }
     },
     module: {
@@ -90,7 +89,7 @@ module.exports = {
 
         // 提出公共模块
         new webpack.optimize.CommonsChunkPlugin({
-            name : 'common',
+            name: 'common',
             filename: 'js/base.js'
         })
     ],
@@ -98,16 +97,16 @@ module.exports = {
         port: 8083,
         historyApiFallback: {
             index: '/dist/index.html'
-        }
-       /* proxy : {
-            '/manage' : {
+        },
+        proxy: {
+            '/manage': {
                 target: 'http://admintest.happymmall.com',
-                changeOrigin : true
+                changeOrigin: true
             },
-            '/user/logout.do' : {
+            '/user/logout.do': {
                 target: 'http://admintest.happymmall.com',
-                changeOrigin : true
+                changeOrigin: true
             }
-        }*/
+        }
     }
 };
