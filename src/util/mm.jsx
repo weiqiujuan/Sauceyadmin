@@ -1,25 +1,26 @@
 class Mutil {
     request(param) {
         return new Promise((resolve, reject) => {
+            console.log(param.data);
             $.ajax({
                 type: param.type || 'get',
                 url: param.url || '',
                 dataType: param.dataType || 'json',
                 data: param.data || null,
-                success(res) {
-                    //成功
-                    if (0 === res.status) {
+                success     : res => {
+                    // 数据请求成功
+                    if(0 === res.status){
                         typeof resolve === 'function' && resolve(res.data, res.msg);
-                    }//做登录
-                    else if (10 === res.status) {
-                        this.doLogin();
-                    }//错误
-                    else {
-                        typeof reject === 'function' && reject(res.msg, res.data);
                     }
-
+                    // 没有登录状态，强制登录
+                    else if(10 === res.status){
+                        this.doLogin();
+                    }
+                    else{
+                        typeof reject === 'function' && reject(res.msg || res.data);
+                    }
                 },
-                error(err) {
+                error       : err => {
                     typeof reject === 'function' && reject(err.statusText);
                 }
             })
@@ -44,9 +45,11 @@ class Mutil {
     errorTips(errmsg) {
         alert(errmsg || '好像哪里不对了~')
     }
-    successTips(successMsg){
-        alert(successMsg||'操作成功');
+
+    successTips(successMsg) {
+        alert(successMsg || '操作成功');
     }
+
     //存储
     setStorage(name, data) {
         let dataType = typeof data;

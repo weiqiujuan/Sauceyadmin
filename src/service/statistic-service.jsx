@@ -2,12 +2,11 @@ import Mutil from 'util/mm.jsx'
 
 const mm = new Mutil();
 
-class User {
-    login(loginInfo) {
+class Statistic {
+    //首页数据统计
+    getHomeCount() {
         return mm.request({
-            type: 'post',
-            url: '/manage/user/login.do',
-            data: loginInfo
+            url: '/manage/statistic/base_count.do',
         })
     }
     //检查登录接口的数据是不是合法
@@ -39,15 +38,5 @@ class User {
             url: '/user/logout.do',
         })
     }
-
-    getUserList(pageNum){
-        return mm.request({
-            type: 'post',
-            url: '/manage/user/list.do',
-            data:{
-                pageNum:pageNum
-            }
-        })
-    }
 }
-export default User;
+export default Statistic;

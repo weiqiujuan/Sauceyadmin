@@ -30,7 +30,7 @@ class Login extends React.Component {
         let inputName = e.target.name;
         let inputValue = e.target.value;
         this.setState({
-            [inputName]: [inputValue]
+            [inputName]: inputValue
         })
     }
 
