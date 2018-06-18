@@ -1,12 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
 class TopNav extends React.Component {
     constructor(props) {
         super(props);
     }
+//退出登陆
+    onLogout(){
 
+    }
     render() {
         return (
             <div className='navbar navbar-default top-navbar'>
@@ -25,7 +27,7 @@ class TopNav extends React.Component {
                         </a>
                         <ul className="dropdown-menu dropdown-user">
                             <li>
-                                <a >
+                                <a onClick={()=>{this.onLogout()}} >
                                     <i className="fa fa-sign-out fa-fw"></i>
                                     <span>退出登录</span>
                                 </a>
