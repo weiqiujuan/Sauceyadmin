@@ -36,29 +36,23 @@ class ListSearch extends React.Component {
                     <div className="form-inline">
                         <div className="form-group">
                             <select className="form-control"
-                                    name='searchType'
-                                    onChange={(e) => {
-                                        this.onValueChange(e)
-                                    }}>
+                                    name="searchType"
+                                    onChange={(e) => this.onValueChange(e)}>
                                 <option value="productId">按商品ID查询</option>
                                 <option value="productName">按商品名称查询</option>
                             </select>
                         </div>
+                        <div className="form-group">
+                            <input type="text"
+                                   className="form-control"
+                                   placeholder="关键词"
+                                   name="searchKeyword"
+                                   onKeyUp={(e) => this.onSearchKeywordKeyUp(e)}
+                                   onChange={(e) => this.onValueChange(e)}/>
+                        </div>
+                        <button className="btn btn-primary"
+                                onClick={(e) => this.onSearch()}>搜索</button>
                     </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder='关键词'
-                               name='searchKeyword'
-                               onKeyUp={(e) => {
-                                   this.onSearchKeywordKeyUp(e)
-                               }}
-                               onChange={(e) => {
-                                   this.onValueChange(e)
-                               }}
-                        />
-                    </div>
-                    <button className="btn btn-primary"
-                            onClick={(e) => {this.onSearch()}}>GO
-                    </button>
                 </div>
             </div>
         )
