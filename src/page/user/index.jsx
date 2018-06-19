@@ -1,9 +1,10 @@
 import React from 'react';
-import PageTitle from 'component/page-title/index.jsx';
-import Pagination from 'util/pagination/pagination.jsx'
 import Mutil from 'util/mm.jsx';
 import User from 'service/user-service.jsx';
-import TableList    from 'util/table-list/table-list.jsx';
+
+import PageTitle from 'component/page-title/index.jsx';
+import Pagination from 'util/pagination/pagination.jsx'
+import TableList from 'util/table-list/table-list.jsx';
 
 const mm = new Mutil();
 const user = new User();
@@ -30,7 +31,7 @@ class UserList extends React.Component {
     }
 
 //页数发生变化的时候
-    onPageNumChange() {
+    onPageNumChange(pageNum) {
         this.setState({
             pageNum: pageNum
         }, () => {
@@ -39,8 +40,8 @@ class UserList extends React.Component {
     }
 
     render() {
-        let listbody=this.state.list.map((user,index)=>{
-            return(
+        let listbody = this.state.list.map((user, index) => {
+            return (
                 <tr key={index}>
                     <td>{user.id}</td>
                     <td>{user.username}</td>
@@ -58,7 +59,7 @@ class UserList extends React.Component {
                 </TableList>
                 <Pagination current={this.state.pageNum}
                             total={this.state.total}
-                            onChage={
+                            onChange={
                                 (pageNum) => {
                                     this.onPageNumChange(pageNum)
                                 }

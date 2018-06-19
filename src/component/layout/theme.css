@@ -461,7 +461,7 @@ footer p {
 }
 
 .active-menu {
-    background-color: #2DAFCB !important;
+    background-color: rgba(65,80,91,0.78) !important;
     color: #fff !important;
 }
 
@@ -544,7 +544,7 @@ ul.nav.nav-second-level.collapse.in {
 }
 .top-navbar .navbar-brand:hover {
     color: #2DAFCB;
-    background-color: rgb(43, 46, 51);
+    background-color: gray;
 }
 
 .dropdown-user li {
