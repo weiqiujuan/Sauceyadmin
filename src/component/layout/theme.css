@@ -398,7 +398,8 @@ footer p {
 
 .navbar-brand b {
     margin-right:5px;
-    color: #2DAFCB;
+    color: rgba(214,235,209,0.78);
+    opacity: .6;
 }
 
 .top-navbar .nav > li {
