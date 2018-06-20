@@ -22,6 +22,7 @@ class CategorySelector extends React.Component {
         this.loadFirstCategory();
     }
 
+    //props变化的时候触发，商品编辑的时候信息回填
     componentWillReceiveProps(nextProps) {
         let categoryIdChange = this.props.categoryId !== nextProps.categoryId;
         let parentCategoryIdChange = this.props.parentCategoryId !== nextProps.parentCategoryId;

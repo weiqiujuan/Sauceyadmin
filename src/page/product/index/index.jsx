@@ -73,7 +73,7 @@ class ProductList extends React.Component {
             confirmTips = currentStatus === 1
                 ? '确定下架该商品' : '确定上架该商品';
         if (window.confirm(confirmTips)) {
-            product.setProductList({
+            product.onSetProductStatus({
                 productId: productId,
                 status: newStatus
             }).then(res => {
@@ -126,7 +126,7 @@ class ProductList extends React.Component {
                                                 onClick={(e) => {
                                                     this.onSetProductStatus(e, product.id, product.status)
                                                 }}>
-                                            {product.status == 1 ? '下架' : '上架'}
+                                            {product.status === 1 ? '下架' : '上架'}
                                         </button>
                                     </td>
                                     <td>
