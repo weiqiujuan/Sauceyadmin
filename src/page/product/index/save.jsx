@@ -4,6 +4,8 @@ import Mutil from 'util/mm.jsx';
 import Product from 'service/product-service.jsx'
 import CategorySelector from './category-selector.jsx';
 import FileUploader from 'util/file-uploader/index.jsx'
+import './save.scss'
+import RichEditor from "util/rich-editor/index.jsx";
 
 const mm = new Mutil();
 const product = new Product();
@@ -12,7 +14,7 @@ class ProductSave extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 1,
+            id: this.props.match.params.pid,
             name: '',
             subtitle: '',
             categoryId: 0,
@@ -22,6 +24,30 @@ class ProductSave extends React.Component {
             stock: '',
             detail: '',
             status: 1 //商品状态1为在售
+        }
+    }
+
+
+    componentDidMount() {
+        this.loadProduct();
+    }
+
+    //商品详情
+    loadProduct() {
+        if (this.state.id) {
+            product.getProduct(this.state.id).then(res => {
+                let images = res.subImages.split(',');
+                res.subImages = images.map((imgUri) => {
+                    return {
+                        uri: imgUri,
+                        url: res.imageHost + imgUri
+                    }
+                });
+                res.defaultDetail = res.detail;
+                this.setState(res);
+            }, err => {
+                mm.errorTips(err);
+            })
         }
     }
 
@@ -63,6 +89,49 @@ class ProductSave extends React.Component {
         mm.errorTips(err)
     }
 
+    //富文本
+    onDetailValueChange(value) {
+        this.setState({
+            detail: value
+        })
+    }
+
+//图片处理
+    getSubImagesString() {
+        return this.state.subImages.map((img) => {
+            img.uri
+        })
+    }
+
+    onSubmit() {
+        let products = {
+            name: this.state.name,
+            subtitle: this.state.subtitle,
+            categoryId: parseInt(this.state.categoryId),
+            subImages: this.getSubImagesString(),
+            detail: this.state.detail,
+            price: parseFloat(this.state.price),
+            stock: parseInt(this.state.stock),
+            status: this.state.status
+        };
+        let productCheckResult = product.checkProduct(products);
+
+        if(this.state.id){
+            product.id=this.state.id;
+        }
+        //表单验证成功
+        if (productCheckResult.status) {
+            product.saveProduct(products).then(res => {
+                mm.successTips(res);
+                this.props.history.push('/product/index')
+            }, err => {
+                mm.errorTips(err);
+            })
+        } else {
+            mm.errorTips(productCheckResult.msg);
+        }
+    }
+
     render() {
         return (
             <div id='page-wrapper'>
@@ -75,7 +144,7 @@ class ProductSave extends React.Component {
                         <div className="col-md-5">
                             <input type="text" className='form-control'
                                    name='name'
-                                   value={this.state.id}
+                                   value={this.state.name}
                                    onChange={e => {
                                        this.onValueChange(e);
                                    }}/>
@@ -95,12 +164,9 @@ class ProductSave extends React.Component {
                         <label className="col-md-2 control-label">所属分类</label>
                         <div>
                             <CategorySelector
-                             categoryId={this.state.categoryId}
-                             parebtCategoryId={this.state.parentCategoryId}
-                             onCategoryChange={(categoryId,parentCategoryId)=>{
-                                 this.onCategoryChange(categoryId,parentCategoryId)
-                             }}
-                            />
+                                categoryId={this.state.categoryId}
+                                parentCategoryId={this.state.parentCategoryId}
+                                onCategoryChange={(categoryId, parentCategoryId) => this.onCategoryChange(categoryId, parentCategoryId)}/>
                         </div>
                     </div>
                     <div className="form-group">
@@ -138,7 +204,7 @@ class ProductSave extends React.Component {
                                 this.state.subImages.length ? this.state.subImages.map(
                                     (image, index) => (
                                         <div className="img-con" key={index}>
-                                            <img className='img' src={image.url} />
+                                            <img className='img' src={image.url}/>
                                             <i className="fa fa-close" index={index}
                                                onClick={(e) => this.onImageDelete(e)}>
                                             </i>
@@ -158,7 +224,11 @@ class ProductSave extends React.Component {
                     <div className="form-group">
                         <label className="col-md-2 control-label">商品详情</label>
                         <div className="col-md-10">
-
+                            <RichEditor
+                                detail={this.state.detail}
+                                defaultDetail={this.state.defaultDetail}
+                                onValueChange={
+                                (value) => this.onDetailValueChange(value)}/>
                         </div>
                     </div>
                     <div className="form-group">
