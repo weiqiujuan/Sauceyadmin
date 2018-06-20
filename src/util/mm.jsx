@@ -7,6 +7,7 @@ class Mutil {
                 url: param.url || '',
                 dataType: param.dataType || 'json',
                 data: param.data || null,
+                async: false,
                 success     : res => {
                     // 数据请求成功
                     if(0 === res.status){

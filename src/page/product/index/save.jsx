@@ -116,8 +116,8 @@ class ProductSave extends React.Component {
         };
         let productCheckResult = product.checkProduct(products);
 
-        if(this.state.id){
-            product.id=this.state.id;
+        if (this.state.id) {
+            product.id = this.state.id;
         }
         //表单验证成功
         if (productCheckResult.status) {
@@ -135,7 +135,7 @@ class ProductSave extends React.Component {
     render() {
         return (
             <div id='page-wrapper'>
-                <PageTitle title='添加商品'/>
+                <PageTitle title={this.state.id ? '编辑商品' : '添加商品'}/>
                 <div className="form-horizontal">
                     <div className="form-group">
                         <label className="col-md-2 control-label">
@@ -228,7 +228,7 @@ class ProductSave extends React.Component {
                                 detail={this.state.detail}
                                 defaultDetail={this.state.defaultDetail}
                                 onValueChange={
-                                (value) => this.onDetailValueChange(value)}/>
+                                    (value) => this.onDetailValueChange(value)}/>
                         </div>
                     </div>
                     <div className="form-group">
@@ -236,7 +236,8 @@ class ProductSave extends React.Component {
                             <button type="submit" className="btn btn-primary"
                                     onClick={(e) => {
                                         this.onSubmit(e)
-                                    }}>提交
+                                    }}>
+                                {this.state.id?'保存':'提交'}
                             </button>
                         </div>
                     </div>

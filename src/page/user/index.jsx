@@ -26,6 +26,9 @@ class UserList extends React.Component {
         user.getUserList(this.state.pageNum).then(res => {
             this.setState(res);
         }, err => {
+            this.setState({
+                list : []
+            });
             mm.errorTips(err);
         });
     }
