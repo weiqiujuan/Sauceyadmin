@@ -27,7 +27,7 @@ class UserList extends React.Component {
             this.setState(res);
         }, err => {
             this.setState({
-                list : []
+                list: []
             });
             mm.errorTips(err);
         });

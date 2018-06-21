@@ -21,11 +21,11 @@ class CategoryAdd extends React.Component {
         this.loadCategoryList();
     }
 
-    onValueChange(e){
-        let name=e.target.name,
-            value=e.target.value;
+    onValueChange(e) {
+        let name = e.target.name,
+            value = e.target.value;
         this.setState({
-            [name]:value
+            [name]: value
         })
     }
 

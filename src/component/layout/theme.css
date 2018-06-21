@@ -4,7 +4,6 @@ License: Commons Attribution 3.0
 http://creativecommons.org/licenses/by/3.0/
 ------------------------------------------------*/
 
-
 /*----------------------------------------------
     COMMON  STYLES
 ------------------------------------------------*/
@@ -25,7 +24,6 @@ body {
 .text-center {
     text-align: center;
 }
-
 
 h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 7px;
@@ -78,7 +76,7 @@ p {
     width: 260px;
     top: 60px;
     bottom: 0;
-    overflow-y : auto;
+    overflow-y: auto;
     background: #2b2e33;
 }
 
@@ -105,6 +103,7 @@ p {
     /* background-color: #FAFAFA; */
     border-radius: 0;
 }
+
 /*----------------------------------------------
    DASHBOARD STYLES
 ------------------------------------------------*/
@@ -280,6 +279,7 @@ p {
     font-size: 16px;
     line-height: 30px;
 }
+
 /*CHAT PANEL*/
 /*Charts*/
 
@@ -359,17 +359,17 @@ p {
     color: #8d8888;
 }
 
-.chat-img>img {
+.chat-img > img {
     margin-left: 20px;
 }
 
 footer p {
     font-size: 14px;
 }
+
 /*----------------------------------------------
     MENU STYLES
 ------------------------------------------------*/
-
 
 .user-image {
     margin: 25px auto;
@@ -397,8 +397,8 @@ footer p {
 }
 
 .navbar-brand b {
-    margin-right:5px;
-    color: rgba(214,235,209,0.78);
+    margin-right: 5px;
+    color: rgba(214, 235, 209, 0.78);
     opacity: .6;
 }
 
@@ -423,17 +423,20 @@ footer p {
     background: transparent;
 }
 
-.top-navbar .nav > li:hover .dropdown-menu{
+.top-navbar .nav > li:hover .dropdown-menu {
     display: block;
 }
+
 .top-navbar .dropdown-menu {
     min-width: 230px;
     top: 98%;
     border-radius: 0 0 4px 4px;
 }
-.dropdown-menu > li > a{
+
+.dropdown-menu > li > a {
     cursor: pointer;
 }
+
 .top-navbar .dropdown-menu > li > a:hover, .top-navbar .dropdown-menu > li > a:focus {
     color: #225081;
     background: none;
@@ -462,7 +465,7 @@ footer p {
 }
 
 .active-menu {
-    background-color: rgba(65,80,91,0.78) !important;
+    background-color: rgba(65, 80, 91, 0.78) !important;
     color: #fff !important;
 }
 
@@ -496,7 +499,7 @@ footer p {
     padding-left: 55px;
 }
 
-.sidebar-collapse , .sidebar-collapse .nav {
+.sidebar-collapse, .sidebar-collapse .nav {
     background: none;
 }
 
@@ -539,10 +542,12 @@ ul.nav.nav-second-level.collapse.in {
 .top-navbar .nav > li > a > i {
     margin-right: 2px;
 }
+
 .top-navbar .nav > li > a > span {
     color: #666;
     margin-right: 5px;
 }
+
 .top-navbar .navbar-brand:hover {
     color: #2DAFCB;
     background-color: gray;
@@ -576,6 +581,7 @@ ul.nav.nav-second-level.collapse.in {
     margin-right: 10px;
     color: #666;
 }
+
 /*----------------------------------------------
     UI ELEMENTS STYLES
 ------------------------------------------------*/
@@ -595,15 +601,15 @@ ul.nav.nav-second-level.collapse.in {
     MEDIA QUERIES
 ------------------------------------------------*/
 
-@media(max-width:768px) {
+@media (max-width: 768px) {
 
-    .top-navbar{
+    .top-navbar {
         position: relative;
     }
-    .top-navbar .navbar-brand{
+
+    .top-navbar .navbar-brand {
         width: 100%;
     }
-
 
     .navbar-side {
         z-index: 1;
@@ -611,6 +617,7 @@ ul.nav.nav-second-level.collapse.in {
         position: relative;
         top: 0;
     }
+
     #page-wrapper {
         margin: 0;
         padding: 15px 30px;

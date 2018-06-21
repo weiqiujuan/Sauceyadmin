@@ -9,7 +9,7 @@ import Home from 'page/home/index.jsx';
 import Login from 'page/login/index.jsx';
 import ErrorPage from 'page/error/index.jsx';
 import UserList from 'page/user/index.jsx';
-import ProductRouter    from 'page/product/router.jsx';
+import ProductRouter from 'page/product/router.jsx';
 import OrderList from 'page/order/index.jsx'
 import OrderDetail from "page/order/detail.jsx";
 
@@ -35,7 +35,6 @@ class App extends React.Component {
                 <Switch>
 
                     <Route path='/login' component={Login}/>
-
                     <Route path='/' render={props => (
                         LayoutRouter
                     )}/>

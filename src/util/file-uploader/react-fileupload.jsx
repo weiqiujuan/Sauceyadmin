@@ -5,9 +5,11 @@
 * @Last Modified time: 2018-02-02 13:12:18
 */
 
-import React    from 'react';
-import PT       from 'prop-types';
-const emptyFunction = function() {}
+import React from 'react';
+import PT from 'prop-types';
+
+const emptyFunction = function () {
+}
 /*当前IE上传组的id*/
 let currentIEID = 0
 /*存放当前IE上传组的可用情况*/
@@ -16,8 +18,8 @@ const IEFormGroup = [true]
 let xhrList = []
 let currentXHRID = 0
 
-class FileUpload extends React.Component{
-    constructor(props){
+class FileUpload extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             chooseBtn: {},       //选择按钮。如果chooseAndUpload=true代表选择并上传。
@@ -27,6 +29,7 @@ class FileUpload extends React.Component{
             after: []        //存放props.children中位于uploadBtn后的元素,
         }
     }
+
     /*根据props更新组件*/
     _updateProps(props) {
         this.isIE = !(this.checkIE() < 0 || this.checkIE() >= 10)
@@ -120,7 +123,7 @@ class FileUpload extends React.Component{
         this.textBeforeFiles = options.textBeforeFiles || false //make this true to add text fields before file data
         /*使用filesToUpload()方法代替*/
         if (this.filesToUpload.length && !this.isIE) {
-            this.filesToUpload.forEach( file => {
+            this.filesToUpload.forEach(file => {
                 this.files = [file]
                 this.commonUpload()
             })
@@ -130,7 +133,7 @@ class FileUpload extends React.Component{
         let chooseBtn, uploadBtn, flag = 0
         const before = [], middle = [], after = []
         if (this.chooseAndUpload) {
-            React.Children.forEach(props.children, (child)=> {
+            React.Children.forEach(props.children, (child) => {
                 if (child && child.ref == 'chooseAndUpload') {
                     chooseBtn = child
                     flag++
@@ -139,7 +142,7 @@ class FileUpload extends React.Component{
                 }
             })
         } else {
-            React.Children.forEach(props.children, (child)=> {
+            React.Children.forEach(props.children, (child) => {
                 if (child && child.ref == 'chooseBtn') {
                     chooseBtn = child
                     flag++
@@ -161,13 +164,16 @@ class FileUpload extends React.Component{
     }
 
     /*触发隐藏的input框选择*/
+
     /*触发beforeChoose*/
     commonChooseFile() {
         const jud = this.beforeChoose()
         if (jud != true && jud != undefined) return
         this.refs['ajax_upload_file_input'].click()
     }
+
     /*现代浏览器input change事件。File API保存文件*/
+
     /*触发chooseFile*/
     commonChange(e) {
         let files
@@ -176,9 +182,9 @@ class FileUpload extends React.Component{
 
         /*如果限制了多文件上传时的数量*/
         const numberLimit = typeof this.numberLimit === 'function' ? this.numberLimit() : this.numberLimit
-        if(this.multiple && numberLimit && files.length > numberLimit) {
+        if (this.multiple && numberLimit && files.length > numberLimit) {
             const newFiles = {}
-            for(let i = 0; i< numberLimit; i++) newFiles[i] = files[i]
+            for (let i = 0; i < numberLimit; i++) newFiles[i] = files[i]
             newFiles.length = numberLimit
             files = newFiles
         }
@@ -199,7 +205,6 @@ class FileUpload extends React.Component{
         }
 
 
-
         if (!this.files) return
         if (!this.baseUrl) throw new Error('baseUrl missing in options')
 
@@ -208,7 +213,7 @@ class FileUpload extends React.Component{
         /*组装FormData*/
         let formData = new FormData()
         /*If we need to add fields before file data append here*/
-        if(this.textBeforeFiles){
+        if (this.textBeforeFiles) {
             formData = this.appendFieldsToFormData(formData);
         }
         if (!this._withoutFileUpload) {
@@ -216,16 +221,16 @@ class FileUpload extends React.Component{
 
             /*判断是用什么方式作为formdata item 的 name*/
             Object.keys(this.files).forEach(key => {
-                if(key == 'length') return
+                if (key == 'length') return
 
-                if(fieldNameType == 'function') {
+                if (fieldNameType == 'function') {
                     const file = this.files[key]
                     const fileFieldName = this.fileFieldName(file)
                     formData.append(fileFieldName, file)
-                }else if(fieldNameType == 'string') {
+                } else if (fieldNameType == 'string') {
                     const file = this.files[key]
                     formData.append(this.fileFieldName, file)
-                }else {
+                } else {
                     const file = this.files[key]
                     formData.append(file.name, file)
                 }
@@ -233,7 +238,7 @@ class FileUpload extends React.Component{
 
         }
         /*If we need to add fields after file data append here*/
-        if(!this.textBeforeFiles){
+        if (!this.textBeforeFiles) {
             formData = this.appendFieldsToFormData(formData);
         }
         const baseUrl = this.baseUrl
@@ -267,16 +272,16 @@ class FileUpload extends React.Component{
         )
 
         /*处理超时。用定时器判断超时，不然xhr state=4 catch的错误无法判断是超时*/
-        if(this.timeout) {
+        if (this.timeout) {
             xhr.timeout = this.timeout
             xhr.ontimeout = () => {
                 this.uploadError({type: 'TIMEOUTERROR', message: 'timeout'})
                 scope.isTimeout = false
             }
             scope.isTimeout = false
-            setTimeout(()=>{
+            setTimeout(() => {
                 scope.isTimeout = true
-            },this.timeout)
+            }, this.timeout)
         }
 
         xhr.onreadystatechange = () => {
@@ -328,22 +333,25 @@ class FileUpload extends React.Component{
     }
 
     /*组装自定义添加到FormData的对象*/
-    appendFieldsToFormData(formData){
+    appendFieldsToFormData(formData) {
         const field = typeof this.paramAddToField == 'function' ? this.paramAddToField() : this.paramAddToField
         field &&
-        Object.keys(field).map(index=>
+        Object.keys(field).map(index =>
             formData.append(index, field[index])
         )
         return formData
     }
 
     /*iE选择前验证*/
+
     /*触发beforeChoose*/
     IEBeforeChoose(e) {
         const jud = this.beforeChoose()
         jud != true && jud != undefined && e.preventDefault()
     }
+
     /*IE需要用户真实点击上传按钮，所以使用透明按钮*/
+
     /*触发chooseFile*/
     IEChooseFile(e) {
         this.fileName = e.target.value.substring(e.target.value.lastIndexOf('\\') + 1)
@@ -353,12 +361,14 @@ class FileUpload extends React.Component{
         document.getElementById(`ajax_upload_file_form_${this.IETag}${currentIEID}`).submit()
         e.target.blur()
     }
+
     /*IE处理上传函数*/
+
     /*触发beforeUpload doUpload*/
     IEUpload(e) {
         const mill = (new Date).getTime()
         const jud = this.beforeUpload(this.fileName, mill)
-        if(!this.fileName || (jud != true && jud != undefined) ) {
+        if (!this.fileName || (jud != true && jud != undefined)) {
             e && e.preventDefault()
             return false
         }
@@ -375,7 +385,7 @@ class FileUpload extends React.Component{
             param['_'] = mill
             param['ie'] === undefined && (param['ie'] = 'true')
             for (const key in param) {
-                if(param[key] != undefined) paramArr.push(`${key}=${param[key]}`)
+                if (param[key] != undefined) paramArr.push(`${key}=${param[key]}`)
             }
             paramStr = '?' + paramArr.join('&')
         }
@@ -392,10 +402,10 @@ class FileUpload extends React.Component{
             this.uploading({
                 loaded,
                 total: 100
-            },mill)
+            }, mill)
             /*防止永久执行，设定最大的次数。暂时为30秒(200*150)*/
             ++count >= 150 && clearInterval(progressInterval)
-        },200)
+        }, 200)
 
 
         /*当前上传id*/
@@ -419,12 +429,15 @@ class FileUpload extends React.Component{
                 oInput.outerHTML = oInput.outerHTML
             }
         }
+
         this.doUpload(this.fileName, mill)
         /*置为非空闲*/
         IEFormGroup[currentIEID] = false
 
     }
+
     /*IE回调函数*/
+
     //TODO 处理Timeout
     IECallback(dataType, frameId) {
         /*回复空闲状态*/
@@ -433,7 +446,7 @@ class FileUpload extends React.Component{
         const frame = document.getElementById(`ajax_upload_file_frame_${this.IETag}${frameId}`)
         const resp = {}
         const content = frame.contentWindow ? frame.contentWindow.document.body : frame.contentDocument.document.body
-        if(!content) throw new Error('Your browser does not support async upload')
+        if (!content) throw new Error('Your browser does not support async upload')
         try {
             resp.responseText = content.innerHTML || 'null innerHTML'
             resp.json = JSON ? JSON.parse(resp.responseText) : eval(`(${resp.responseText})`)
@@ -454,7 +467,7 @@ class FileUpload extends React.Component{
 
     /*外部调用方法，主动触发选择文件（等同于调用btn.click()), 仅支持现代浏览器*/
     forwardChoose() {
-        if(this.isIE) return false
+        if (this.isIE) return false
         this.commonChooseFile()
     }
 
@@ -476,7 +489,7 @@ class FileUpload extends React.Component{
 
     /*外部调用方法，传入files（File API）对象可以立刻执行上传动作，IE不支持。调用随后会触发beforeUpload*/
     filesToUpload(files) {
-        if(this.isIE) return
+        if (this.isIE) return
         this.files = files
         this.commonUpload()
     }
@@ -487,6 +500,7 @@ class FileUpload extends React.Component{
             xhrList[currentXHRID].abort() :
             xhrList[id].abort()
     }
+
     /*判断ie版本*/
     checkIE() {
         const userAgent = this.userAgent;
@@ -528,7 +542,7 @@ class FileUpload extends React.Component{
         this.isIE = !(this.checkIE() < 0 || this.checkIE() >= 10)
         /*因为IE每次要用到很多form组，如果在同一页面需要用到多个<FileUpload>可以在options传入tag作为区分。并且不随后续props改变而改变*/
         const tag = this.props.options && this.props.options.tag
-        this.IETag = tag ? tag+'_' : ''
+        this.IETag = tag ? tag + '_' : ''
 
         this._updateProps(this.props)
     }
@@ -561,7 +575,7 @@ class FileUpload extends React.Component{
                 <div className={this.props.className} style={this.props.style}>
                     {this.state.before}
                     <div onClick={(e) => this.commonChooseFile(e)}
-                         style={{overflow:'hidden',postion:'relative',display:this.wrapperDisplay}}
+                         style={{overflow: 'hidden', postion: 'relative', display: this.wrapperDisplay}}
                     >
                         {this.state.chooseBtn}
                     </div>
@@ -578,7 +592,7 @@ class FileUpload extends React.Component{
                     </div>
                     {this.state.after}
                     <input type="file" name="ajax_upload_file_input" ref="ajax_upload_file_input"
-                           style={{display:'none'}} onChange={(e) => this.commonChange(e)}
+                           style={{display: 'none'}} onChange={(e) => this.commonChange(e)}
                            {...restAttrs}
                     />
                 </div>
@@ -588,6 +602,7 @@ class FileUpload extends React.Component{
     }
 
     /*IE多文件同时上传，需要多个表单+多个form组合。根据currentIEID代表有多少个form。*/
+
     /*所有不在空闲（正在上传）的上传组都以display:none的形式插入，第一个空闲的上传组会display:block捕捉。*/
     _multiIEForm() {
         const formArr = []
@@ -600,15 +615,15 @@ class FileUpload extends React.Component{
             typeof this.disabledIEChoose === 'function' ? this.disabledIEChoose() : this.disabledIEChoose
 
         /*这里IEFormGroup的长度会变，所以不能存len*/
-        for(let i = 0; i<IEFormGroup.length;  i++) {
-            _insertIEForm.call(this,formArr,i)
+        for (let i = 0; i < IEFormGroup.length; i++) {
+            _insertIEForm.call(this, formArr, i)
             /*如果当前上传组是空闲，hasFree=true，并且指定当前上传组ID*/
-            if(IEFormGroup[i] && !hasFree) {
+            if (IEFormGroup[i] && !hasFree) {
                 hasFree = true
                 currentIEID = i
             }
             /*如果所有上传组都不是空闲状态，push一个新增组*/
-            (i==IEFormGroup.length-1) && !hasFree && IEFormGroup.push(true)
+            (i == IEFormGroup.length - 1) && !hasFree && IEFormGroup.push(true)
 
         }
 
@@ -618,21 +633,21 @@ class FileUpload extends React.Component{
             </div>
         )
 
-        function _insertIEForm(formArr,i) {
+        function _insertIEForm(formArr, i) {
             /*如果已经push了空闲组而当前也是空闲组*/
-            if(IEFormGroup[i] && hasFree) return
+            if (IEFormGroup[i] && hasFree) return
             /*是否display*/
             const isShow = IEFormGroup[i]
             /*Input内联样式*/
             const style = {
-                position:'absolute',
-                left:'-30px',
-                top:0,
-                zIndex:'50',
-                fontSize:'80px',
-                width:'200px',
-                opacity:0,
-                filter:'alpha(opacity=0)'
+                position: 'absolute',
+                left: '-30px',
+                top: 0,
+                zIndex: '50',
+                fontSize: '80px',
+                width: '200px',
+                opacity: 0,
+                filter: 'alpha(opacity=0)'
             }
 
             /*是否限制了文件后缀，以及是否disabled*/
@@ -643,7 +658,8 @@ class FileUpload extends React.Component{
 
             const input =
                 <input type="file" name={`ajax_upload_hidden_input_${i}`} id={`ajax_upload_hidden_input_${i}`}
-                       ref={`ajax_upload_hidden_input_${i}`} onChange={(e) => this.IEChooseFile(e)} onClick={(e) => this.IEBeforeChoose(e)}
+                       ref={`ajax_upload_hidden_input_${i}`} onChange={(e) => this.IEChooseFile(e)}
+                       onClick={(e) => this.IEBeforeChoose(e)}
                        style={style} {...restAttrs}
                 />
 
@@ -652,30 +668,30 @@ class FileUpload extends React.Component{
                 <form id={`ajax_upload_file_form_${i}`} method="post" target={`ajax_upload_file_frame_${i}`}
                       key={`ajax_upload_file_form_${i}`}
                       encType="multipart/form-data" ref={`form_${i}`} onSubmit={(e) => this.IEUpload(e)}
-                      style={{display:isShow? 'block':'none'}}
+                      style={{display: isShow ? 'block' : 'none'}}
                 >
                     {this.state.before}
-                    <div style={{overflow:'hidden',position:'relative',display:'inline-block'}}>
+                    <div style={{overflow: 'hidden', position: 'relative', display: 'inline-block'}}>
                         {this.state.chooseBtn}
                         {/*input file 的name不能省略*/}
                         {input}
                     </div>
                     {this.state.middle}
                     <div style={{
-                        overflow:'hidden',
-                        position:'relative',
-                        display:this.chooseAndUpload?'none':this.wrapperDisplay
+                        overflow: 'hidden',
+                        position: 'relative',
+                        display: this.chooseAndUpload ? 'none' : this.wrapperDisplay
                     }}
                     >
                         {this.state.uploadBtn}
                         <input type="submit"
                                style={{
-                                   position:'absolute',
-                                   left:0,
-                                   top:0,
-                                   fontSize:'50px',
-                                   width:'200px',
-                                   opacity:0
+                                   position: 'absolute',
+                                   left: 0,
+                                   top: 0,
+                                   fontSize: '50px',
+                                   width: '200px',
+                                   opacity: 0
                                }}
                         />
                     </div>

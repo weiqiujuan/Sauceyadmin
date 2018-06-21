@@ -237,7 +237,7 @@ class ProductSave extends React.Component {
                                     onClick={(e) => {
                                         this.onSubmit(e)
                                     }}>
-                                {this.state.id?'保存':'提交'}
+                                {this.state.id ? '保存' : '提交'}
                             </button>
                         </div>
                     </div>

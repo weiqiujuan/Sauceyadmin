@@ -89,7 +89,10 @@ class Login extends React.Component {
                                 />
                             </div>
                             <button className='btn btn-lg btn-primary btn-block'
-                                onClick={e => {this.onSubmit(e)}}>登录</button>
+                                    onClick={e => {
+                                        this.onSubmit(e)
+                                    }}>登录
+                            </button>
                         </div>
                     </div>
                 </div>

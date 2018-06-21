@@ -1,14 +1,16 @@
 import React from 'react';
 
-class PageTitle extends React.Component{
-    constructor(props){
+class PageTitle extends React.Component {
+    constructor(props) {
         super(props);
     }
-    componentWillMount(){
-        document.title=this.props.title+'-HappyMall';
+
+    componentWillMount() {
+        document.title = this.props.title + '-HappyMall';
     }
-    render(){
-        return(
+
+    render() {
+        return (
             <div className='row'>
                 <div className='col-md-12'>
                     <h1 className='page-header'>
@@ -22,4 +24,5 @@ class PageTitle extends React.Component{
         )
     }
 }
+
 export default PageTitle;

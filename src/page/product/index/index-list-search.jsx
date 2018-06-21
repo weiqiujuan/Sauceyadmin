@@ -51,7 +51,8 @@ class ListSearch extends React.Component {
                                    onChange={(e) => this.onValueChange(e)}/>
                         </div>
                         <button className="btn btn-primary"
-                                onClick={(e) => this.onSearch()}>搜索</button>
+                                onClick={(e) => this.onSearch()}>搜索
+                        </button>
                     </div>
                 </div>
             </div>
